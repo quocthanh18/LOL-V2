@@ -2,7 +2,7 @@ library(httr2)
 library(jsonlite)
 library(readr)
 
-riot_api_key <- "RGAPI-48b41f17-7fac-45aa-a8e5-0db90021b1e9"
+riot_api_key <- read_file("riot_api_key.txt")
 puuid_list <- read.table("puuid_list.txt", col.names = "puuid")
 
 matches <- data.frame(gameId=character())
@@ -19,3 +19,4 @@ for ( i in 1:nrow(puuid_list) ) {
   print("Done")
 }
 
+write.table(matches, "matches.txt", row.names = FALSE, col.names = FALSE, append = TRUE)

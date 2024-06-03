@@ -2,7 +2,7 @@ library(httr2)
 library(jsonlite)
 library(tidyverse)
 
-riot_api_key <- "RGAPI-48b41f17-7fac-45aa-a8e5-0db90021b1e9"
+riot_api_key <- read_file("riot_api_key.txt")
 page <- 1
 
 summoner_crawler <- function(tier) {

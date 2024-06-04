@@ -22,7 +22,6 @@ for ( i in 1:5) {
   blueKills <- 0
   blueDeaths <- 0
   blueAssists <- 0
-  blueEliteMonsters <- 0
   blueDragons <- 0
   blueHeralds <- 0
   blueTowersDestroyed <- 0
@@ -43,7 +42,6 @@ for ( i in 1:5) {
   redKills <- 0
   redDeaths <- 0
   redAssists <- 0
-  redEliteMonsters <- 0
   redDragons <- 0
   redHeralds <- 0
   redTowersDestroyed <- 0
@@ -137,7 +135,7 @@ for ( i in 1:5) {
             redDeaths <- redDeaths + 1
             
             #Assists
-            if ( events[j, "assistingParticipantIds"] != NULL) {
+            if ( !is.null(events[j, "assistingParticipantIds"])) {
               blueAssists <- blueAssists + length(events[j, "assistingParticipantIds"])
             }
           }
@@ -146,11 +144,61 @@ for ( i in 1:5) {
             blueDeaths <- blueDeaths + 1
             
             #Assists
-            if ( events[j, "assistingParticipantIds"] != NULL) {
+            if ( !is.null(events[j, "assistingParticipantIds"])) {
               redAssists <- redAssists + length(events[j, "assistingParticipantIds"])
             }
           }
         }
+        
+        #Dragons
+        if ( events[j, "type"] == "ELITE_MONSTER_KILL") {
+          if ( events[j, "monsterType"] == "DRAGON") {
+            if ( events[j, "killerId"] <= 5 & events[j, "killerId"] >= 1) {
+              blueDragons <- blueDragons + 1
+            }
+            else {
+              redDragons <- redDragons + 1
+            }
+          }
+        }
+        
+        #Heralds
+        if ( events[j, "type"] == "ELITE_MONSTER_KILL") {
+          if ( events[j, "monsterType"] == "RIFT_HERALD") {
+            if ( events[j, "killerId"] <= 5 & events[j, "killerId"] >= 1) {
+              blueHeralds <- blueHeralds + 1
+            }
+            else {
+              redHeralds <- redHeralds + 1
+            }
+          }
+        }
+        
+        #Void grubs
+        if ( events[j, "type"] == "ELITE_MONSTER_KILL") {
+          if ( events[j, "monsterType"] == "HORDE") {
+            if ( events[j, "killerId"] <= 5 & events[j, "killerId"] >= 1) {
+              blueVoidGrubs <- blueVoidGrubs + 1
+            }
+            else {
+              redVoidGrubs <- redVoidGrubs + 1
+            }
+          }
+        }
+        
+        #Towers Destroyed
+        if ( events[j, "type"] == "BUILDING_KILL") {
+          if ( events[j, "buildingType"] == "TOWER_BUILDING") {
+            if ( events[j, "killerId"] <= 5 & events[j, "killerId"] >= 1) {
+              blueTowersDestroyed <- blueTowersDestroyed + 1
+            }
+            else {
+              redTowersDestroyed <- redTowersDestroyed + 1
+            }
+          }
+        }
+        
+        
       }
     }
       minute <- minute + 1

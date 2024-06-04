@@ -23,5 +23,5 @@ for ( i in 1:nrow(puuid_list)) {
   
 }
 
-write.table(matches, "data/matches.txt", row.names = FALSE, col.names = FALSE, append = TRUE)
-print(sum(duplicated(matches)))
+write.table(distinct(matches), "data/matches.txt", row.names = FALSE, col.names = FALSE, append = TRUE)
+

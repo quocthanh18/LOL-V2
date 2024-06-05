@@ -168,13 +168,13 @@ def main():
                 minute += 1
 
 
-            blueCSPerMin /= 15
-            blueGoldPerMin /= 15
+        blueCSPerMin /= 15
+        blueGoldPerMin /= 15
 
-            redCSPerMin /= 15
-            redGoldPerMin /= 15
+        redCSPerMin /= 15
+        redGoldPerMin /= 15
 
-            current_match_data = {
+        current_match_data = {
                 "matchId": matchId,
                 "blueWins": blueWins,
                 "blueWardsPlaced": blueWardsPlaced,
@@ -219,9 +219,9 @@ def main():
 
                 "gameDuration": gameDuration
             }
-            matches_data.append(current_match_data)
-            print("Match", i, "done")
-            time.sleep(0.5)
+        matches_data.append(current_match_data)
+        print("Match", i, "done")
+        time.sleep(0.5)
 
     matches_data = pd.DataFrame(matches_data)
     matches_data.to_csv("data/matches_data.csv", index=False)

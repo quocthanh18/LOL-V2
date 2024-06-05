@@ -24,23 +24,31 @@ Next up, for each of these PUUIDs, we will be getting their match history using 
 ## Match Data
 Because we are aiming for 15 minutes of data, we need to get the specific details of each math. We will be using this [API](https://developer.riotgames.com/apis#match-v5/GET_getTimeline) to get the data of each match.
 
-### Features
-| **Value**                | **Explanation**                                                                    | **Where/How to get**                                                                        |
-|--------------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| win                      | Which team did win                                                                 | 'GAME_END'-event                                                                            |
-| wardsPlaced              | A ward provides vision and might prevent death                                     | Iterate over each 'WARD_PLACED'-event and add up                                            |
-| wardsDestroyed           |                                                                                    | Iterate over each 'WARD_KILL'-event and add up                                              |
-| firstBlood               | The first kill in a game provides extra gold                                       | 'killType': 'KILL_FIRST_BLOOD'                                                              |
-| kills                    | Provides gold and experience and prevents enemy from gathering gold and experience | Iterate over each 'type': 'CHAMPION_KILL' and add for each 'killerID'                       |
-| deaths                   |                                                                                    | Iterate over each 'type': 'CHAMPION_KILL' and add for each 'victimID'                       |
-| assists                  | Provides a tiny bit of gold and experience                                         | Iterate over each 'type': 'CHAMPION_KILL' and add 'assistingParticipantIds' for each player |
-| dragons                  | Provides team-wide buff, gold and experience                                       | Iterate over each 'mosterType': 'DRAGON' and read 'killerTeamId'                            |
-| heralds                  | Once killed, a herald can be placed to destroy buildings                           | Iterade over each 'monsterType': 'RIFTHERALD' and read 'killerTeamId'                       |
-| towerDestroyed           | Provides gold, opens the map                                                       | Iterate over each 'type': 'BUILDING_KILL' where 'buildingType': 'TOWER_BUILDING'            |
-| totalGold                | Gold is required to purchase items                                                 | Read 'totalGold' from 'stats' per player                                                    |
-| avgLevel                 | Player get better stats when advancing to the next level                           | Read 'level' for each summoner and divide by 5                                              |
-| totalMinionsKilled       | Minions provide gold and experience                                                | Read 'minionsKilled' and add up for each player                                             |
-| totalJungleMonsterKilled | Jungle monster provide gold and experience                                         | Read 'jungleMinionsKilled' and add up for each player                                       |
-| csPerMinute              | Amount of minions killed per minute                                                | Add totalMinionsKilled for each player, divide by 5, divide by 15                           |
-| goldPerMinute            | Amount of gold acquired per minute                                                 | Read 'goldPerSecond' for each player, add up and divide by 5                                |
-| gameDuration             |                                                                                    | 'GAME_END'-event                                                                            |
+# Features
+| **Names** | **Description** | Notes |
+| --- | --- | --- |
+| blueWins| Whether the blue team won or not |  |
+| firstBlood | First kill in the game | Both |
+| Kills | Total kills in the game | Both |
+| Deaths | Total deaths in the game | Both |
+| Assists | Total assists in the game | Both |
+| WardsPlaced | Total wards placed in the game | Both |
+| WardsDestroyed | Total wards destroyed in the game | Both | 
+| ControlWardsPlaced | Total control wards placed in the game | Both |
+| ControlWardsDestroyed | Total control wards destroyed in the game | Both | 
+| Dragons | Total dragons a team secured in the game | Both |
+| Herald | Whether a team secured a herald in the game | Both | 
+| Void Grubs | Total void grubs a team secured in the game | Both |
+| TowersDestroyed | Total towers destroyed in the game | Both |
+| PlatesDestroyed | Total plates destroyed in the game | Both |
+| TotalGold | Total gold at 15th minute | Both |
+| TotalExperience | Total experience at 15th minute | Both |
+| TotalMinionsKilled | Total minions killed at 15th minute | Both | 
+| TotalJungleMinionsKilled | Total jungle minions killed at 15th minute | Both | 
+| CSPerMin | Amount of minions killed per minute | Both | 
+| GoldPerMin | Amount of gold earn per minute | Both |
+| gameDuration | Game length in seconds | |
+
+*Notes*: Both means that there will be 2 seperate features for the feature, both for blue and red.
+
+In total, we will have 1 + 2 * 19 + 1 = 40 number of features.

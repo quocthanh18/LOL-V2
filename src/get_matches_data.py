@@ -221,7 +221,7 @@ def main():
             }
             matches_data.append(current_match_data)
             print("Match", i, "done")
-            time.sleep(1.4)
+            time.sleep(0.5)
 
     matches_data = pd.DataFrame(matches_data)
     matches_data.to_csv("data/matches_data.csv", index=False)

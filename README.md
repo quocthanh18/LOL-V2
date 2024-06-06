@@ -1,4 +1,8 @@
-Last updated: 05/06/2024
+Last updated: 06/06/2024
+
+Patch version: 14.11
+
+Sever: Korea
 # LOL-V2
 This is my personal project about League of Legends and is an improved version from the previous ones as I will be doing the data gathering by myself using the Riot API. The main goal of this project is to analyze the data and create a model that can predict the outcome of a match based on the data gathered.
 
@@ -13,7 +17,7 @@ With that being said, I'm sure that my data will be obsolete in a few months, bu
 In this project, I will be only using data from the highest tier of the game, which is Challenger and Grandmaster.
 
 ## encryptedSummonerID
-The first step is to get the encryptedsummonerID of the players in the highest tier. As of right now, there are about 300 players in the Challenger tier and 700 players in the Grandmaster tier. I will be using the Riot API to get the summonerID of these players using this [API](https://developer.riotgames.com/apis#league-exp-v4). 
+The first step is to get the encryptedsummonerID of the players in the highest tier. As of right now, there are about 300 players in the Challenger tier and 700 players in the Grandmaster tier. I will be using the Riot API to get the encryptedsummonerID of these players using this [API](https://developer.riotgames.com/apis#league-exp-v4). 
 
 ## PUUID
 After getting the encryptedsummonerID, I will be using this [API](https://developer.riotgames.com/apis#summoner-v4) to get their respective PUUID.
@@ -22,7 +26,7 @@ After getting the encryptedsummonerID, I will be using this [API](https://develo
 Next up, for each of these PUUIDs, we will be getting their match history using this [API](https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID) to get their latest 100 matches.
 
 ## Match Data
-Because we are aiming for 15 minutes of data, we need to get the specific details of each math. We will be using this [API](https://developer.riotgames.com/apis#match-v5/GET_getTimeline) to get the data of each match.
+Because we are aiming for 15 minutes of data, we need to get the specific details of each match. We will be using this [API](https://developer.riotgames.com/apis#match-v5/GET_getTimeline) to get the data of each match.
 
 # Features
 | **Names** | **Description** | Notes |
@@ -47,8 +51,9 @@ Because we are aiming for 15 minutes of data, we need to get the specific detail
 | TotalJungleMinionsKilled | Total jungle minions killed at 15th minute | Both | 
 | CSPerMin | Amount of minions killed per minute | Both | 
 | GoldPerMin | Amount of gold earn per minute | Both |
+| FirstTurret | Whether a team secured the first turret in the game | Both |
 | gameDuration | Game length in seconds | |
 
 *Notes*: Both means that there will be 2 seperate features for the feature, both for blue and red.
 
-In total, we will have 1 + 2 * 19 + 1 = 40 number of features.
+In total, we will have 1 + 2 * 20 + 1 = 42 number of features.

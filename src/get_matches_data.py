@@ -35,6 +35,7 @@ def main():
         blueTotalJungleMinionsKilled = 0
         blueCSPerMin = 0
         blueGoldPerMin = 0
+        blueFirstTurret = 0
 
         redWardsPlaced = 0
         redControlWardsPlaced = 0
@@ -55,6 +56,7 @@ def main():
         redTotalJungleMinionsKilled = 0
         redCSPerMin = 0
         redGoldPerMin = 0
+        redFirstTurret = 0
 
         gameDuration = 0
         #Check if the game is longer than 15 minutes
@@ -67,6 +69,7 @@ def main():
             gameDuration = lastEvent["timestamp"] / 1000
 
             minute = 0
+            checkFirstTurret = False
             while minute <= 15:
                 events_at_minute = data["info"]["frames"][minute]["events"]
 
@@ -139,19 +142,36 @@ def main():
                             else:
                                 redVoidGrubs += 1
                         
-                    #Towers 
+                    #Building
                     if event["type"] == "BUILDING_KILL":
-                        if event["killerId"] < 6:
-                                redTowersDestroyed += 1
-                        else:
+
+                        #Towers
+                        if event["buildingType"] == "TOWER_BUILDING":
+                            if event["killerId"] < 6:
                                 blueTowersDestroyed += 1
+                                if not checkFirstTurret:
+                                    blueFirstTurret = 1
+                                    checkFirstTurret = True
+                            else:
+                                redTowersDestroyed += 1
+                                if not checkFirstTurret:
+                                    redFirstTurret = 1
+                                    checkFirstTurret = True
+
+                        #Inhibitors
+                        if event["buildingType"] == "INHIBITOR_BUILDING":
+                            if event["killerId"] < 6:
+                                blueInhibitorsDestroyed += 1
+                            else:
+                                redInhibitorsDestroyed += 1
 
                     #Plates
                     if event["type"] == "TURRET_PLATE_DESTROYED":
                         if event["killerId"] < 6:
-                                redPlatesDestroyed += 1
-                        else:
                                 bluePlatesDestroyed += 1
+                        else:
+                                redPlatesDestroyed += 1
+
                 participants = data["info"]["frames"][minute]["participantFrames"]
                 if 900000 < data["info"]["frames"][minute]["timestamp"] < 901000:
                     for participant in participants:
@@ -196,6 +216,7 @@ def main():
                 "blueTotalJungleMinionsKilled": blueTotalJungleMinionsKilled,
                 "blueCSPerMin": blueCSPerMin,
                 "blueGoldPerMin": blueGoldPerMin,
+                "blueFirstTurret": blueFirstTurret,
 
                 "redWardsPlaced": redWardsPlaced,
                 "redControlWardsPlaced": redControlWardsPlaced,
@@ -216,6 +237,7 @@ def main():
                 "redTotalJungleMinionsKilled": redTotalJungleMinionsKilled,
                 "redCSPerMin": redCSPerMin,
                 "redGoldPerMin": redGoldPerMin,
+                "redFirstTurret": redFirstTurret,
 
                 "gameDuration": gameDuration
             }

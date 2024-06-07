@@ -1,4 +1,4 @@
-Last updated: 06/06/2024
+Last updated: 08/06/2024
 
 Patch version: 14.11
 
@@ -52,8 +52,11 @@ Because we are aiming for 15 minutes of data, we need to get the specific detail
 | CSPerMin | Amount of minions killed per minute | Both | 
 | GoldPerMin | Amount of gold earn per minute | Both |
 | FirstTurret | Whether a team secured the first turret in the game | Both |
+| InhibitorsDestroyed | Total inhibitors destroyed in the game | Both |
+| FirstDragon | Whether a team secured the first dragon in the game | Both |
 | gameDuration | Game length in seconds | |
 
 *Notes*: Both means that there will be 2 seperate features for the feature, both for blue and red.
 
 In total, we will have 1 + 2 * 20 + 1 = 42 number of features.
+

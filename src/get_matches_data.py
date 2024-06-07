@@ -37,6 +37,7 @@ def main():
         blueGoldPerMin = 0
         blueFirstTurret = 0
         blueInhibitorsDestroyed = 0
+        blueFirstDragon = 0
 
         redWardsPlaced = 0
         redControlWardsPlaced = 0
@@ -59,6 +60,7 @@ def main():
         redGoldPerMin = 0
         redFirstTurret = 0
         redInhibitorsDestroyed = 0
+        redFirstDragon = 0
 
         gameDuration = 0
         #Check if the game is longer than 15 minutes
@@ -72,6 +74,7 @@ def main():
 
             minute = 0
             checkFirstTurret = False
+            checkFirstDragon = False
             while minute <= 15:
                 events_at_minute = data["info"]["frames"][minute]["events"]
 
@@ -127,8 +130,14 @@ def main():
                         if event["monsterType"] == "DRAGON":
                             if event["killerId"] < 6:
                                 blueDragons += 1
+                                if not checkFirstDragon:
+                                    blueFirstDragon = 1
+                                    checkFirstDragon = True
                             else:
                                 redDragons += 1
+                                if not checkFirstDragon:
+                                    redFirstDragon = 1
+                                    checkFirstDragon = True
 
                         #Heralds
                         if event["monsterType"] == "RIFTHERALD":
@@ -220,6 +229,7 @@ def main():
                 "blueGoldPerMin": blueGoldPerMin,
                 "blueFirstTurret": blueFirstTurret,
                 "blueInhibitorsDestroyed": blueInhibitorsDestroyed,
+                "blueFirstDragon": blueFirstDragon,
 
                 "redWardsPlaced": redWardsPlaced,
                 "redControlWardsPlaced": redControlWardsPlaced,
@@ -242,6 +252,7 @@ def main():
                 "redGoldPerMin": redGoldPerMin,
                 "redFirstTurret": redFirstTurret,
                 "redInhibitorsDestroyed": redInhibitorsDestroyed,
+                "redFirstDragon": redFirstDragon,
 
                 "gameDuration": gameDuration
             }

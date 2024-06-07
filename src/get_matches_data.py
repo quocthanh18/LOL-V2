@@ -36,6 +36,7 @@ def main():
         blueCSPerMin = 0
         blueGoldPerMin = 0
         blueFirstTurret = 0
+        blueInhibitorsDestroyed = 0
 
         redWardsPlaced = 0
         redControlWardsPlaced = 0
@@ -57,6 +58,7 @@ def main():
         redCSPerMin = 0
         redGoldPerMin = 0
         redFirstTurret = 0
+        redInhibitorsDestroyed = 0
 
         gameDuration = 0
         #Check if the game is longer than 15 minutes
@@ -217,6 +219,7 @@ def main():
                 "blueCSPerMin": blueCSPerMin,
                 "blueGoldPerMin": blueGoldPerMin,
                 "blueFirstTurret": blueFirstTurret,
+                "blueInhibitorsDestroyed": blueInhibitorsDestroyed,
 
                 "redWardsPlaced": redWardsPlaced,
                 "redControlWardsPlaced": redControlWardsPlaced,
@@ -238,13 +241,13 @@ def main():
                 "redCSPerMin": redCSPerMin,
                 "redGoldPerMin": redGoldPerMin,
                 "redFirstTurret": redFirstTurret,
+                "redInhibitorsDestroyed": redInhibitorsDestroyed,
 
                 "gameDuration": gameDuration
             }
         matches_data.append(current_match_data)
         print("Match", i, "done")
         time.sleep(0.5)
-
     matches_data = pd.DataFrame(matches_data)
     matches_data.to_csv("data/matches_data.csv", index=False)
             

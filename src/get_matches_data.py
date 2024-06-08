@@ -264,7 +264,7 @@ def main():
                 print("Match", matchId, "done")
                 time.sleep(0.2)
                 matches.pop(0)
-            except:
+            except KeyError:
                 print("Error in match")
                 print("Retrying in 2 seconds")
                 time.sleep(2)

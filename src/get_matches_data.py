@@ -1,12 +1,10 @@
 import requests
 import time
-import pandas as pd
 import csv
 
 def main():
     riot_api_key = open("riot_api_key.txt", "r").read()
-    matches = pd.read_csv("data/matches.txt", names=["matchId"])
-    matches = list(matches["matchId"])[25595:]
+    matches = list(set(open("data/matches_history.txt", "r").read().splitlines()))
     with open("data/matches_data.csv", "a") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n") 
         counter = 0
@@ -38,8 +36,6 @@ def main():
                 blueTotalExperience = 0
                 blueTotalMinionsKilled = 0
                 blueTotalJungleMinionsKilled = 0
-                blueCSPerMin = 0
-                blueGoldPerMin = 0
                 blueFirstTurret = 0
                 blueInhibitorsDestroyed = 0
                 blueFirstDragon = 0
@@ -61,8 +57,6 @@ def main():
                 redTotalExperience = 0
                 redTotalMinionsKilled = 0
                 redTotalJungleMinionsKilled = 0
-                redCSPerMin = 0
-                redGoldPerMin = 0
                 redFirstTurret = 0
                 redInhibitorsDestroyed = 0
                 redFirstDragon = 0
@@ -203,13 +197,6 @@ def main():
                                     redTotalJungleMinionsKilled += participants[participant]["jungleMinionsKilled"]
                         minute += 1
 
-
-                blueCSPerMin /= 15
-                blueGoldPerMin /= 15
-
-                redCSPerMin /= 15
-                redGoldPerMin /= 15
-
                 current_match_data = {
                         "matchId": matchId,
                         "blueWins": blueWins,
@@ -230,8 +217,6 @@ def main():
                         "blueTotalExperience": blueTotalExperience,
                         "blueTotalMinionsKilled": blueTotalMinionsKilled,
                         "blueTotalJungleMinionsKilled": blueTotalJungleMinionsKilled,
-                        "blueCSPerMin": blueCSPerMin,
-                        "blueGoldPerMin": blueGoldPerMin,
                         "blueFirstTurret": blueFirstTurret,
                         "blueInhibitorsDestroyed": blueInhibitorsDestroyed,
                         "blueFirstDragon": blueFirstDragon,
@@ -253,8 +238,6 @@ def main():
                         "redTotalExperience": redTotalExperience,
                         "redTotalMinionsKilled": redTotalMinionsKilled,
                         "redTotalJungleMinionsKilled": redTotalJungleMinionsKilled,
-                        "redCSPerMin": redCSPerMin,
-                        "redGoldPerMin": redGoldPerMin,
                         "redFirstTurret": redFirstTurret,
                         "redInhibitorsDestroyed": redInhibitorsDestroyed,
                         "redFirstDragon": redFirstDragon,

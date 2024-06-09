@@ -1,6 +1,6 @@
 import requests
 import time
-import json
+
 riot_api_key = open("riot_api_key.txt", "r").read()
 
 def tier_crawler(tier):
@@ -15,7 +15,7 @@ def tier_crawler(tier):
                 break
             else:
                 for info in response:
-                    f.write(info["summonerId"] + "\n")
+                    f.write(str(info["summonerId"]) + "\n")
             page += 1
             time.sleep(0.3)
 

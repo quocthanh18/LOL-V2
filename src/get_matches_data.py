@@ -6,9 +6,10 @@ import csv
 def main():
     riot_api_key = open("riot_api_key.txt", "r").read()
     matches = pd.read_csv("data/matches.txt", names=["matchId"])
-    matches = list(matches["matchId"])
+    matches = list(matches["matchId"])[25595:]
     with open("data/matches_data.csv", "a") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n") 
+        counter = 0
         while len(matches) > 0:
             try:
                 #Get match response
@@ -269,6 +270,12 @@ def main():
                 print("Retrying in 2 seconds")
                 time.sleep(2)
                 
+                #Matches not found in the database
+                #5 retries before moving on
+                counter += 1
+                if counter == 5:
+                    matches.pop(0)
+                    counter = 0
         
 
             

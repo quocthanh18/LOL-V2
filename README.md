@@ -28,6 +28,8 @@ Next up, for each of these PUUIDs, we will be getting their match history using 
 ## Match Data
 Because we are aiming for 15 minutes of data, we need to get the specific details of each match. We will be using this [API](https://developer.riotgames.com/apis#match-v5/GET_getTimeline) to get the data of each match.
 
+## Notes
+During the API calls, there were some matches that were not found in the database but still got returned somehow. Apparently, this is a known issue and Riot Games developer has said that they will not be fixing this [issue](https://github.com/RiotGames/developer-relations/issues/807) so we will just have to remove it during the API call.
 # Features
 | **Names** | **Description** | Notes |
 | --- | --- | --- |

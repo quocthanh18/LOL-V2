@@ -13,7 +13,7 @@ def main():
                 url = f"https://kr.api.riotgames.com/lol/summoner/v4/summoners/{Id}?api_key={riot_api_key}"
                 response = requests.get(url).json()
                 f.write(response["puuid"] + "\n")
-                time.sleep(0.2)
+                time.sleep(0.5)
                 summonerId.pop(0)
             except:
                 print("Retrying in 1 secodns")

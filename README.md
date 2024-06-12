@@ -1,4 +1,4 @@
-Last updated: 08/06/2024
+Last updated: 12/06/2024
 
 Patch version: 14.11
 
@@ -14,7 +14,7 @@ Although there were already some datasets available online, this is still an onl
 With that being said, I'm sure that my data will be obsolete in a few months, but I will still want to give it a try.
 
 # Data Gathering
-In this project, I will be only using data from the highest tier of the game, which is Challenger and Grandmaster.
+In this project, I will be only using data from the highest tier of the game, which is Challenger, Grandmaster and Master.
 
 ## encryptedSummonerID
 The first step is to get the encryptedsummonerID of the players in the highest tier. As of right now, there are about 300 players in the Challenger tier and 700 players in the Grandmaster tier. I will be using the Riot API to get the encryptedsummonerID of these players using this [API](https://developer.riotgames.com/apis#league-exp-v4). 
@@ -51,8 +51,6 @@ During the API calls, there were some matches that were not found in the databas
 | TotalExperience | Total experience at 15th minute | Both |
 | TotalMinionsKilled | Total minions killed at 15th minute | Both | 
 | TotalJungleMinionsKilled | Total jungle minions killed at 15th minute | Both | 
-| CSPerMin | Amount of minions killed per minute | Both | 
-| GoldPerMin | Amount of gold earn per minute | Both |
 | FirstTurret | Whether a team secured the first turret in the game | Both |
 | InhibitorsDestroyed | Total inhibitors destroyed in the game | Both |
 | FirstDragon | Whether a team secured the first dragon in the game | Both |
@@ -60,5 +58,6 @@ During the API calls, there were some matches that were not found in the databas
 
 *Notes*: Both means that there will be 2 seperate features for the feature, both for blue and red.
 
-In total, we will have 1 + 2 * 20 + 1 = 42 number of features.
+During the matches history crawling, there were some matches that were not a ranked game but stil got returned in the response. We will solve this by making another request using this [API](https://developer.riotgames.com/apis#match-v5/GET_getMatch) to get the type of game before fetching the match data. Also, since there are only around 7000 players in the highest tier ( 7338 approximately), we will have around 733800 matches to work with, but there will be some duplicates because some players will be in the same match and there will be players who haven't played 100 matches yet so the actual number of matches will be less than that.
+
 

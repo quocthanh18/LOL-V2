@@ -7,11 +7,10 @@ def tier_crawler(tier):
     empty = False
     page = 1
     with open("data/summonerID.txt", "a") as f:
-        while not empty:
+        while True:
             url = f"https://kr.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{tier}/I?page={page}&api_key={riot_api_key}"
             response = requests.get(url).json()
             if not response:
-                empty = True
                 break
             else:
                 for info in response:
@@ -22,5 +21,6 @@ def tier_crawler(tier):
 def main():
     tier_crawler("CHALLENGER")    
     tier_crawler("GRANDMASTER")
+    tier_crawler("MASTER")
 if __name__ == "__main__":
     main()

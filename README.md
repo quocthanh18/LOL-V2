@@ -17,8 +17,7 @@ With that being said, I'm sure that my data will be obsolete in a few months, bu
 In this project, I will be only using data from the highest tier of the game, which is Challenger, Grandmaster and Master.
 
 ## encryptedSummonerID
-The first step is to get the encryptedsummonerID of the players in the highest tier. As of right now, there are about 300 players in the Challenger tier and 700 players in the Grandmaster tier. I will be using the Riot API to get the encryptedsummonerID of these players using this [API](https://developer.riotgames.com/apis#league-exp-v4). 
-
+The first step is to get the encryptedsummonerID of the players in the highest tier. As of right now, there are about 300 players in the Challenger tier, 700 players in the Grandmaster tier and about 8000 players in Master tier. I will be using the Riot API to get the encryptedsummonerID of these players using this [API](https://developer.riotgames.com/apis#league-exp-v4). We ended up with 7941 summonerIDs.
 ## PUUID
 After getting the encryptedsummonerID, I will be using this [API](https://developer.riotgames.com/apis#summoner-v4) to get their respective PUUID.
 
@@ -59,5 +58,11 @@ During the API calls, there were some matches that were not found in the databas
 *Notes*: Both means that there will be 2 seperate features for the feature, both for blue and red.
 
 During the matches history crawling, there were some matches that were not a ranked game but stil got returned in the response. We will solve this by making another request using this [API](https://developer.riotgames.com/apis#match-v5/GET_getMatch) to get the type of game before fetching the match data. Also, since there are only around 7000 players in the highest tier ( 7338 approximately), we will have around 733800 matches to work with, but there will be some duplicates because some players will be in the same match and there will be players who haven't played 100 matches yet so the actual number of matches will be less than that.
+
+# Completed Data
+After running all the scripts to gather the summonerID, PUUID, matchID, we ended up with 105164 matches. With the current API limit, it would take us approximately 35 hours to get the detail of each match. Therefore, I came up with an idea to split the data into 4 parts and using 4 different API keys to get the data. This way, we can get the data in 10 hours, given that we will have 3 batches with 30000 matches and 1 batch with 15164 matches. After about 1 days, because I was having network problems, some scripts were accidentally stopped while I was sleeping, we got 94356 matches. This is the final data that we will be working with.
+
+# Data Cleaning
+At first look, I noticed that there were some columns that should not be zero, e.g blue and red jungle minions under no circumstances should be zero. I will be removing these rows from the dataset. 
 
 

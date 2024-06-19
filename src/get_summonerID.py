@@ -4,7 +4,6 @@ import time
 riot_api_key = open("riot_api_key.txt", "r").read()
 
 def tier_crawler(tier):
-    empty = False
     page = 1
     with open("data/summonerID.txt", "a") as f:
         while True:
@@ -14,7 +13,7 @@ def tier_crawler(tier):
                 break
             else:
                 for info in response:
-                    f.write(str(info["summonerId"]) + "\n")
+                    f.write(info["summonerId"] + "\n")
             page += 1
             time.sleep(0.3)
 

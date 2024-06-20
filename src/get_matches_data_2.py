@@ -2,8 +2,7 @@ import requests
 import time
 import csv
 
-riot_api_key = "RGAPI-103614a4-3c60-4202-90aa-d33ff910c3f8"
-
+riot_api_key = "api"
 def main():
     s = requests.Session()
     matches = open("data/batch_2.txt", "r").read().splitlines()

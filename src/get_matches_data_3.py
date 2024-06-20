@@ -2,7 +2,7 @@ import requests
 import time
 import csv
 
-riot_api_key = "RGAPI-ddbeb8da-829f-4c8b-84bb-6f014e34c727"
+riot_api_key = "api"
 
 def main():
     s = requests.Session()

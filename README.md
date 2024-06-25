@@ -118,3 +118,6 @@ That is 108 models to be fitted and after 1 whole day of training, this is the b
 ```
 {'activation': 'sigmoid', 'batch_size': 50, 'epochs': 1000, 'neurons': 32, 'optimizer': 'SGD'}
 ```
+
+# Reference
+This project is inspired by [artoria-dev](https://github.com/artoria-dev/data-science-lol). I highly recommend you check out his project as the markdown there is really well written and the project is really well done.

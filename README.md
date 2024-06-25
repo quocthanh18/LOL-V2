@@ -1,4 +1,4 @@
-Last updated: 12/06/2024
+Last updated: 25/06/2024
 
 Patch version: 14.11
 
@@ -63,6 +63,58 @@ During the matches history crawling, there were some matches that were not a ran
 After running all the scripts to gather the summonerID, PUUID, matchID, we ended up with 105164 matches. With the current API limit, it would take us approximately 35 hours to get the detail of each match. Therefore, I came up with an idea to split the data into 4 parts and using 4 different API keys to get the data. This way, we can get the data in 10 hours, given that we will have 3 batches with 30000 matches and 1 batch with 15164 matches. After about 1 days, because I was having network problems, some scripts were accidentally stopped while I was sleeping, we got 94356 matches. This is the final data that we will be working with.
 
 # Data Cleaning
-At first look, I noticed that there were some columns that should not be zero, e.g blue and red jungle minions under no circumstances should be zero. I will be removing these rows from the dataset. 
+At first look, I noticed that there were some columns that should not be zero, e.g blue and red jungle minions under no circumstances should be zero. I will be removing these rows from the dataset.  Apart from that, everything looks completely fine to me.
+
+# Data Visualization
+
+Winrate
+
+![](img/winrate.png)
 
 
+Before moving on the the heatmap, I would like to point out some of the features we will be using for our Machine Learning model. 
+
+| **Names** | **Description** | **How to calculate**  |
+| --- | --- | --- |
+| KDA_Diff | Kill Death Assist | blueKDA - redKDA |
+| WardsPlaced_Diff | Wards Placed | blueWardsPlaced - redWardsPlaced |
+| WardsDestroyed_Diff | Wards Destroyed | blueWardsDestroyed - redWardsDestroyed |
+| ObjectivesDiff | Objectives | blueDragons + blueHerald + blueTowersDestroyed + bluePlatesDestroyed + blueInhibitorsDestroyed - redDragons - redHerald - redTowersDestroyed - redPlatesDestroyed - redInhibitorsDestroyed |
+| MinionsDiff | Minions | blueTotalMinionsKilled - redTotalMinionsKilled |
+| JungleDiff | Jungle Minions | blueTotalJungleMinionsKilled - redTotalJungleMinionsKilled |
+| GoldDiff | Gold | blueTotalGold - redTotalGold |
+| ExpDiff | Experience | blueTotalExperience - redTotalExperience |
+
+And the heatmap:
+
+![](img/correlation.png)
+
+# Machine Learning
+For this section, I will be using 70% for training and 30% for testing and the following models:
+
+1. Logistic Regression
+2. Random Forest
+3. SGD Classifier
+4. Neural Network with 1 hidden layers and use GridSearchCV to find the best parameters.
+
+
+# Results
+| **Model** | **Accuracy** | 
+| --- | --- |
+| Logistic Regression | 0.7803 |
+| Random Forest | 0.7783 |
+| SGD Classifier | 0.7803 |
+
+For the Neural Network, these are the parameters grid that were used during the GridSearchCV:
+
+| Batch Size | Epochs | Optimizer | Neurons | Activation |
+| --- | --- | --- | --- | --- |
+| 20 | 100 | Adam | 32 | relu |
+| 50 | 1000 | SGD |  64 | sigmoid |
+| 100 | 10000 | | 128 | |
+
+That is 108 models to be fitted and after 1 whole day of training, this is the best model with the accuracy of `0.7805`:
+
+```
+{'activation': 'sigmoid', 'batch_size': 50, 'epochs': 1000, 'neurons': 32, 'optimizer': 'SGD'}
+```
